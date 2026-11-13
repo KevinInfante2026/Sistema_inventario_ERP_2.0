@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SistemaInventario" default="run" basedir=".">
+
+    <property name="src.dir"     value="src"/>
+    <property name="build.dir"   value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir"     value="${build.dir}/jar"/>
+    <property name="lib.dir"     value="lib"/>
+    <property name="main.class"  value="ui.MainFrame"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"
+               includeantruntime="false" encoding="UTF-8">
+            <classpath refid="classpath"/>
+        </javac>
+        <!-- Copiar recursos SQL si existen -->
+        <copy todir="${classes.dir}">
+            <fileset dir="${src.dir}" excludes="**/*.java"/>
+        </copy>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/SistemaInventario.jar" basedir="${classes.dir}"
+             manifest="manifest.mf"/>
+        <!-- Copiar libs junto al jar para que funcione el Class-Path -->
+        <copy todir="${jar.dir}/lib">
+            <fileset dir="${lib.dir}" includes="**/*.jar"/>
+        </copy>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/SistemaInventario.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+                <pathelement location="${jar.dir}/SistemaInventario.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+</project>

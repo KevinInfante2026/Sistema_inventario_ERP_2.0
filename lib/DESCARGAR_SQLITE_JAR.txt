@@ -1,0 +1,2 @@
+JAR_PLACEHOLDER
+Instruccion: Descarga sqlite-jdbc-3.45.1.0.jar desde https://github.com/xerial/sqlite-jdbc/releases y colócalo en esta carpeta lib/

@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: ui.MainFrame
+Class-Path: lib/sqlite-jdbc-3.45.1.0.jar
+
